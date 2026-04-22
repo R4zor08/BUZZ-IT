@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  username     String     @unique
+  email        String     @unique
+  passwordHash String
+  role         String     @default("User")
+  createdAt    DateTime   @default(now())
+  posts        Post[]
+  reminders    Reminder[]
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  title       String
+  content     String
+  category    Int
+  priority    Int
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Reminder {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  title       String
+  time        DateTime
+  description String    @default("")
+  category    Int
+  priority    Int
+  dueDate     DateTime?
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
