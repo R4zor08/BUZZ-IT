@@ -53,30 +53,33 @@ export function PostsPage() {
   return (
     <>
       <div className="page-head">
-        <h1>Posts</h1>
+        <div className="stack title-block">
+          <h1>Posts</h1>
+          <p className="muted page-subtitle">
+            Sorted by newest first (<code>createdAt</code> descending).
+          </p>
+        </div>
         <Link to="/posts/new" className="btn btn-primary">
           New post
         </Link>
       </div>
-      <p className="muted" style={{ marginTop: "-0.5rem" }}>
-        Sorted by newest first (<code>createdAt</code> descending).
-      </p>
       {error && <div className="error-banner">{error}</div>}
       {loading ? (
         <p className="muted">Loading…</p>
       ) : (
         <div className="list">
           {items.length === 0 ? (
-            <p className="muted">No posts yet. Create one to get started.</p>
+            <p className="empty-state">No posts yet. Create one to get started.</p>
           ) : (
             items.map((p) => (
               <article key={p.id} className="item">
                 <div className="item-head">
                   <div>
                     <h2>{p.title}</h2>
-                    <div className="muted" style={{ fontSize: "0.85rem" }}>
-                      {CATEGORY_LABELS[p.category] ?? p.category} · {PRIORITY_LABELS[p.priority] ?? p.priority}
-                      {p.isCompleted ? " · Done" : ""}
+                    <div className="meta-line">
+                      <span className="badge">{CATEGORY_LABELS[p.category] ?? p.category}</span>
+                      <span className="badge badge-accent">{PRIORITY_LABELS[p.priority] ?? p.priority}</span>
+                      {p.isCompleted && <span className="badge badge-success">Done</span>}
                     </div>
                   </div>
                   <div className="actions">
@@ -93,7 +96,7 @@ export function PostsPage() {
                     </button>
                   </div>
                 </div>
-                <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{p.content}</p>
+                <p className="item-content">{p.content}</p>
               </article>
             ))
           )}

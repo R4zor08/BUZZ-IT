@@ -69,18 +69,20 @@ export function RemindersPage() {
   return (
     <>
       <div className="page-head">
-        <h1>Reminders</h1>
+        <div className="stack title-block">
+          <h1>Reminders</h1>
+          <p className="muted page-subtitle">
+            Filter by search (title and description), category, priority, or completion.
+          </p>
+        </div>
         <Link to="/reminders/new" className="btn btn-primary">
           New reminder
         </Link>
       </div>
-      <p className="muted" style={{ marginTop: "-0.5rem" }}>
-        Filter by search (title and description), category, priority, or completion.
-      </p>
 
-      <div className="card stack" style={{ marginBottom: "1rem" }}>
+      <div className="card stack filter-card">
         <div className="row">
-          <label className="field" style={{ flex: 2, minWidth: 200 }}>
+          <label className="field field-wide">
             Search
             <input
               value={search}
@@ -125,17 +127,18 @@ export function RemindersPage() {
       ) : (
         <div className="list">
           {items.length === 0 ? (
-            <p className="muted">No reminders match your filters.</p>
+            <p className="empty-state">No reminders match your filters.</p>
           ) : (
             items.map((r) => (
               <article key={r.id} className="item">
                 <div className="item-head">
                   <div>
                     <h2>{r.title}</h2>
-                    <div className="muted" style={{ fontSize: "0.85rem" }}>
-                      {new Date(r.time).toLocaleString()} · {CATEGORY_LABELS[r.category] ?? r.category} ·{" "}
-                      {PRIORITY_LABELS[r.priority] ?? r.priority}
-                      {r.isCompleted ? " · Done" : ""}
+                    <div className="meta-line">
+                      <span className="badge">{new Date(r.time).toLocaleString()}</span>
+                      <span className="badge">{CATEGORY_LABELS[r.category] ?? r.category}</span>
+                      <span className="badge badge-warning">{PRIORITY_LABELS[r.priority] ?? r.priority}</span>
+                      {r.isCompleted && <span className="badge badge-success">Done</span>}
                     </div>
                   </div>
                   <div className="actions">
@@ -153,7 +156,7 @@ export function RemindersPage() {
                   </div>
                 </div>
                 {r.description ? (
-                  <p style={{ margin: 0, whiteSpace: "pre-wrap" }}>{r.description}</p>
+                  <p className="item-content">{r.description}</p>
                 ) : null}
               </article>
             ))

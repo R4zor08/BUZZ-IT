@@ -46,7 +46,7 @@ export function Register() {
   }
 
   return (
-    <div className="card stack" style={{ maxWidth: 420, margin: "2rem auto" }}>
+    <div className="card stack auth-card">
       <h1>Create account</h1>
       <p className="muted">Start organizing your BuzzIt workspace.</p>
       {error && <div className="error-banner">{error}</div>}

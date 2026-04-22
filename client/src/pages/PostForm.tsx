@@ -142,7 +142,7 @@ export function PostForm() {
           Due date (optional)
           <input type="datetime-local" value={dueLocal} onChange={(e) => setDueLocal(e.target.value)} />
         </label>
-        <label className="field" style={{ flexDirection: "row", alignItems: "center", gap: "0.5rem" }}>
+        <label className="field checkbox-field">
           <input
             type="checkbox"
             checked={isCompleted}

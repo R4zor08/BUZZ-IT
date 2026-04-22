@@ -36,7 +36,7 @@ export function Login() {
   }
 
   return (
-    <div className="card stack" style={{ maxWidth: 420, margin: "2rem auto" }}>
+    <div className="card stack auth-card">
       <h1>Sign in</h1>
       <p className="muted">Welcome back to BuzzIt.</p>
       {error && <div className="error-banner">{error}</div>}
