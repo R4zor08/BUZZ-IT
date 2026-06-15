@@ -4,6 +4,7 @@ import { env } from "./config/env.js";
 import { authRoutes } from "./routes/authRoutes.js";
 import { postRoutes } from "./routes/postRoutes.js";
 import { reminderRoutes } from "./routes/reminderRoutes.js";
+import { productRoutes } from "./routes/productRoutes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 
 export function createApp() {
@@ -36,6 +37,7 @@ export function createApp() {
   // Alias for clients expecting plural resource name
   app.use("/api/posts", postRoutes);
   app.use("/api/reminders", reminderRoutes);
+  app.use("/api/products", productRoutes);
 
   app.use((_req, res) => {
     res.status(404).json({ error: "Not found." });

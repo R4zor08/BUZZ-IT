@@ -13,6 +13,8 @@ export const env = {
   jwtIssuer: process.env.JWT_ISSUER || undefined,
   jwtAudience: process.env.JWT_AUDIENCE || undefined,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || "15m",
+  basicAuthUsername: process.env.BASIC_AUTH_USERNAME || "admin",
+  basicAuthPassword: process.env.BASIC_AUTH_PASSWORD || "password123",
   clientUrls: (process.env.CLIENT_URL || "http://localhost:5173")
     .split(",")
     .map((s) => s.trim())
